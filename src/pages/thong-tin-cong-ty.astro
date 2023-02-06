@@ -1,0 +1,16 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Features from "@components/thong-tin.astro";
+---
+
+<Layout title="Thông tin">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Thông tin về công ty</Fragment>
+      <Fragment slot="desc">-----</Fragment>
+    </Sectionhead>
+    <Features />
+  </Container>
+</Layout>

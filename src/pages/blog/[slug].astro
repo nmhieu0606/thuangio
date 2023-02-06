@@ -1,0 +1,36 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import { getCollection, CollectionEntry } from "astro:content";
+export async function getStaticPaths() {
+  const blogPosts = await getCollection("blog", ({ data }) => {
+    return !data.draft && data.date < new Date();
+  });
+  return blogPosts.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+interface Props {
+  item: CollectionEntry<"blog">;
+}
+const { item } = Astro.props;
+const { Content } = await item.render();
+---
+
+<Layout title="">
+  <Container>
+    <p class="text-5xl text-center">{item.data.title}</p>
+    <div class="text-2xl text-blue-500 text-center mt-5">
+      <a href={`/category/${item.data.category}/`}>{item.data.category}</a>
+    </div>
+
+    <div class="mt-5">
+      <Content />
+    </div>
+    <div class="text-center ">
+      <p class="px-2">Created by</p>
+      <a class="text-blue-700" href={`/author/${item.data.author}/`}>{item.data.author}</a>
+    </div>
+  </Container>
+</Layout>

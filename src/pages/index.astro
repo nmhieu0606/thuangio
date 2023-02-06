@@ -1,0 +1,63 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Features from "@components/features.astro";
+import Footer from "@components/footer.astro";
+import Hero from "@components/hero.astro";
+//import Logos from "@components/logos.astro";
+import Layout from "@layouts/Layout.astro";
+
+const features = [
+  {
+    title: "Hệ Thống Quản lý Nhân sự",
+    content:
+      "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
+    img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
+  },
+  {
+    title: "Hệ Thống Quản lý Nhân sự",
+    content:
+      "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
+    img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
+  },
+  {
+    title: "Hệ Thống Quản lý Nhân sự",
+    content:
+      "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
+    img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
+  },
+  {
+    title: "Hệ Thống Quản lý Nhân sự",
+    content:
+      "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
+    img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
+  },
+  {
+    title: "Hệ Thống Quản lý Nhân sự",
+    content:
+      "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
+    img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
+  },
+  {
+    title: "Hệ Thống Quản lý Nhân sự",
+    content:
+      "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
+    img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
+    href:'/',
+  },
+];
+---
+
+<Layout title="">
+  <Container>
+    <Hero />
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+      {
+        features.map((item) => (
+          <Features content={item.content} img={item.img} title={item.title} href={item.href}/>
+        ))
+      }
+    </div>
+    <Cta />
+  </Container>
+</Layout>

@@ -1,0 +1,38 @@
+---
+import { formatBlogPosts } from "js/utils";
+import { getCollection, CollectionEntry } from "astro:content";
+import Pagination2 from "@components/Pagination_2.astro";
+import Features from "@components/features.astro";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+export async function getStaticPaths({ paginate }) {
+  const allPost = await getCollection("blog");
+  const Post: CollectionEntry<"blog">[] = formatBlogPosts(allPost);
+  return paginate(Post, {
+    pageSize: 3,
+  });
+}
+const { page } = Astro.props;
+---
+
+<Layout title="blog">
+  <Container>
+    <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-3">
+    {
+      page.data.map((item) => (
+       
+        <Features
+        category={item.data.category}
+        href={`/blog/${item.slug}/`}
+          content={item.data.img}
+          title={item.data.title}
+          img={item.data.image.src}
+        />
+      ))
+    }
+    </div>
+    <div class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 items-center text-center mt-5">
+      <Pagination2 prev={page.url.prev} next={page.url.next} />
+    </div>
+  </Container>
+</Layout>

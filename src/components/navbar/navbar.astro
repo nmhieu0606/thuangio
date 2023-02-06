@@ -1,0 +1,89 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import Dropdown from "./dropdown.astro";
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+
+const menuitems = [
+  {
+    title: "Trang Chủ",
+    path: "/",
+  },
+  {
+    title: "Việc làm",
+    path: "#",
+    children: [
+      { title: "Đã Có kinh Nghiệm", path: "/viec-lam" },
+      { title: "Mới Tốt Nghiệp", path: "#" },
+      { title: "Thực Tập", path: "#" },
+    ],
+  },
+  {
+    title: "Lí Do chọn Công Ty",
+    path: "#",
+    children: [
+      { title: "Dịch vụ - Đối tác ", path: "/dich-vu-doi-tac" },
+      {
+        title: "Môi trường làm việc chuyên nghiệp",
+        path: "/moi-truong-lam-viec",
+      },
+      { title: "Cơ hội đào tạo và phát triển sự nghiệp", path: "#" },
+      { title: "Phúc lợi và thu nhập cạnh tranh", path: "#" },
+      { title: "Hoạt động ngoại khóa phong phú", path: "#" },
+    ],
+  },
+  {
+    title: "Tin Tức",
+    path: "/blog",
+  },
+
+  {
+    title: "Thông tin công ty",
+    path: "/thong-tin-cong-ty",
+  },
+
+];
+---
+
+<Container>
+  <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+    <Astronav>
+      <div class="flex w-full lg:w-auto items-center justify-between">
+        <a href="/" class="text-lg"
+          ><span class="font-bold text-slate-800">Thuận Gió</span><span
+            class="text-slate-500"></span>
+        </a>
+        <div class="block lg:hidden">
+          <MenuIcon class="w-4 h-4 text-gray-800" />
+        </div>
+      </div>
+      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
+        <ul class="flex flex-col lg:flex-row lg:gap-3">
+          {
+            menuitems.map((item, index) => (
+              <>
+                {item.children && (
+                  <Dropdown
+                    title={item.title}
+                    children={item.children}
+                    lastItem={index === menuitems.length - 1}
+                  />
+                )}
+
+                {!item.children && (
+                  <li>
+                    <a
+                      href={item.path}
+                      class="flex lg:px-3 py-2 text-gray-600 hover:text-gray-900">
+                      {item.title}
+                    </a>
+                  </li>
+                )}
+              </>
+            ))
+          }
+        </ul>
+      </MenuItems>
+    </Astronav>
+  </header>
+</Container>

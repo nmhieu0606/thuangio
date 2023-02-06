@@ -1,0 +1,20 @@
+---
+import { Icon } from "astro-icon";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Button from "@components/ui/button.astro";
+import Contactform from "@components/dang-nhap.astro";
+---
+
+<Layout title="Contact">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title"></Fragment>
+      <Fragment slot="desc"
+        ></Fragment
+      >
+    </Sectionhead>
+        <Contactform/>
+  </Container>
+</Layout>
