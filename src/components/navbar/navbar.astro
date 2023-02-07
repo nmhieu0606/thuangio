@@ -62,6 +62,7 @@ const menuitems = [
           {
             menuitems.map((item, index) => (
               <>
+              <div class="body">
                 {item.children && (
                   <Dropdown
                     title={item.title}
@@ -69,7 +70,7 @@ const menuitems = [
                     lastItem={index === menuitems.length - 1}
                   />
                 )}
-
+              </div>
                 {!item.children && (
                   <li>
                     <a
@@ -87,3 +88,8 @@ const menuitems = [
     </Astronav>
   </header>
 </Container>
+<style>
+.body{
+    z-index: 1;
+}
+</style>
