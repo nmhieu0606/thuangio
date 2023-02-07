@@ -4,6 +4,9 @@ import Cta from "@components/cta.astro";
 import Features from "@components/features.astro";
 import Footer from "@components/footer.astro";
 import Hero from "@components/hero.astro";
+import Map from "@components/map.astro";
+import Slider from "@components/slider.astro";
+import Features2 from "@components/Features2.astro";
 //import Logos from "@components/logos.astro";
 import Layout from "@layouts/Layout.astro";
 
@@ -43,21 +46,69 @@ const features = [
     content:
       "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
     img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
-    href:'/',
+    href: "/",
   },
 ];
 ---
 
 <Layout title="">
   <Container>
-    <Hero />
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+    
+    <div class="mt-10">
+      <Slider />
+    </div>
+    <div class="grid gap-1 mt-10">
+      <div class="text-center text-blue-600 sm:text-5xl">
+        <h1>Các lĩnh vực</h1>
+      </div>
+    </div>
+
+    <Features2
+      subtitle="rovides frequently used components for building websites using Tailwind CSS"
+      title="Tại sao lại chọn chúng tôi?"
+      highlight=""
+      items={[
+        {
+          title: "Headers",
+          description:
+            "In general, Headers contain information that makes it easier for visitors to interact with the website.",
+          icon: "flat-color-icons:template",
+        },
+        {
+          title: "Heros",
+          description:
+            "If you want your website to get more than its fair share of visitors, the Hero section needs to be stellar.",
+          icon: "flat-color-icons:gallery",
+        },
+        {
+          title: "Features",
+          description:
+            "Display your product in action and how the Features actually create a solution for your target customer.",
+          icon: "flat-color-icons:todo-list",
+        },
+      ]}
+    />
+
+    <div class="grid gap-1 mt-10">
+      <div class="text-center text-blue-600 sm:text-5xl">
+        <h1>Tin Tức</h1>
+      </div>
+    </div>
+    <div
+      class="grid sm:grid-cols-3 md:grid-cols-3 mt-16 gap-4 sm:text-2xl items-center">
+
       {
         features.map((item) => (
-          <Features content={item.content} img={item.img} title={item.title} href={item.href}/>
+          <Features
+            content={item.content}
+            img={item.img}
+            title={item.title}
+            href={item.href}
+          />
         ))
       }
     </div>
-    <Cta />
   </Container>
+
+  
 </Layout>
