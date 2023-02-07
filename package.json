@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/image": "^0.11.6",
     "@astrojs/mdx": "^0.11.6",
+    "@astrojs/netlify": "^2.1.1",
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/tailwind": "^3.0.1",
     "@fontsource/inter": "^4.5.14",
