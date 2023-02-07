@@ -18,30 +18,27 @@ const { title, content, img, href, avartar, category } = Astro.props;
 <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
 
 -->
-<div class="flex gap-4 items-start">
-  
+<div class="mx-auto">
   <a href={href}>
-    <div>
-      <h3 class="font-semibold text-lg">{title}</h3>{" "}
-      <p class="text-slate-500 mt-2 leading-relaxed"></p>
-      <div class="card">
-        <div class="poster">
-          <Picture
-            src={img}
-            format="avif"
-            alt="Team"
-            widths={[200, 400]}
-            aspectRatio="1:1"
-            sizes="(max-width: 800px) 100vw, 400px"
-            class="w-full h-full object-cover rounded transition group-hover:-translate-y-1 group-hover:shadow-xl"
-            format="avif"
-          />
-        </div>
-        <div style="text-align: center;" class="details">
-          <h3>{title}</h3>
-          <div class="info">
-            <span>{content}</span>
-          </div>
+    <h3 class="font-semibold text-lg">{title}</h3>{" "}
+    <p class="text-slate-500 mt-2 leading-relaxed"></p>
+    <div class="card">
+      <div class="poster">
+        <Picture
+          src={img}
+          format="avif"
+          alt="Team"
+          widths={[200, 400]}
+          aspectRatio="1:1"
+          sizes="(max-width: 800px) 100vw, 400px"
+          class="w-full h-full object-cover rounded transition group-hover:-translate-y-1 group-hover:shadow-xl"
+          format="avif"
+        />
+      </div>
+      <div style="text-align: center;" class="details">
+        <h3>{title}</h3>
+        <div class="info">
+          <span>{content}</span>
         </div>
       </div>
     </div>

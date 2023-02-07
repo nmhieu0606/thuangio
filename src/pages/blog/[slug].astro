@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 import { getCollection, CollectionEntry } from "astro:content";
+import CategoryCloud from "@components/CategoryCloud.astro";
 export async function getStaticPaths() {
   const blogPosts = await getCollection("blog", ({ data }) => {
     return !data.draft && data.date < new Date();
@@ -33,4 +34,5 @@ const { Content } = await item.render();
       <a class="text-blue-700" href={`/author/${item.data.author}/`}>{item.data.author}</a>
     </div>
   </Container>
+  <CategoryCloud></CategoryCloud>
 </Layout>

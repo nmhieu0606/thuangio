@@ -5,6 +5,7 @@ import Pagination2 from "@components/Pagination_2.astro";
 import Features from "@components/features.astro";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
+import CategoryCloud from "@components/CategoryCloud.astro";
 export async function getStaticPaths({ paginate }) {
   const allPost = await getCollection("blog");
   const Post: CollectionEntry<"blog">[] = formatBlogPosts(allPost);
@@ -33,6 +34,9 @@ const { page } = Astro.props;
     </div>
     <div class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 items-center text-center mt-5">
       <Pagination2 prev={page.url.prev} next={page.url.next} />
+      
     </div>
+    <CategoryCloud></CategoryCloud>
   </Container>
 </Layout>
+

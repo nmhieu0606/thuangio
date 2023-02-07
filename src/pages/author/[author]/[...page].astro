@@ -6,6 +6,7 @@ import Container from "@components/container.astro";
 import Layout from "@layouts/Layout.astro";
 import Pagination from "@components/Pagination.astro";
 import Pagination2 from "@components/Pagination_2.astro";
+import CategoryCloud from "@components/CategoryCloud.astro";
 import { log } from "astro/dist/core/logger/core";
 export async function getStaticPaths({ paginate }) {
   const allPost = await getCollection("blog");
@@ -42,5 +43,6 @@ const { page } = Astro.props;
     <div class="gird items-center text-center mt-5">
       <Pagination2 prev={page.url.prev} next={page.url.next} />
     </div>
+    <CategoryCloud></CategoryCloud>
   </Container>
 </Layout>
