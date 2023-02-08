@@ -1,11 +1,55 @@
 ---
-import Link from "./ui/link.astro";
+import { Icon } from "astro-icon";
+import Slider from "./slider.astro";
 ---
 
-<div
-  class="p-8 md:px-20 md:py-20 mt-20 mx-auto max-w-5xl rounded-lg flex flex-col items-center text-center">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15697.783154120003!2d105.44195505!3d10.3861239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1675738667593!5m2!1svi!2s" width="1000" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  <div class="flex mt-5">
-    <Link href="#" style="inverted"></Link>
+<section class="hero-section__section bg-slate-200 rounded-lg ">
+  <div class="hero-section__text text-xl text-center p-10">
+    <h1 class="text-2xl font-bold">Thuận Gió</h1>
+    <p>
+      
+    </p>
+    <div class="hero-btns__container"></div>
   </div>
-</div>
+  <div class="hero-section__image pl-6 pt-10 pb-10">
+    <Slider />
+  </div>
+</section>
+
+<style>
+  .hero-section__section {
+    margin: var(--section-margin) auto;
+    min-height: clamp(90vh, 100vw, calc(100vh - var(--navbar-height)));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-section__text {
+    justify-self: center;
+    max-width: 25rem;
+  }
+  .hero-btns__container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-btns__container {
+    margin-right: 1rem;
+  }
+  .hero-section__image {
+    display: flex;
+  }
+  .hero-section__image img {
+    width: 100%;
+    height: 100%;
+    max-height: 80vh;
+    object-fit: cover;
+    border-radius: var(--theme-shape-radius);
+  }
+  @media (max-width: 768px) {
+    .hero-section__section {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
