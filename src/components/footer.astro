@@ -1,98 +1,139 @@
----
-import { Icon } from 'astro-icon';
-
-
-interface Link {
-  text?: string;
-  href?: string;
-  ariaLabel?: string;
-  icon?: string;
-}
-
-interface Links {
-  title?: string;
-  links: Array<Link>;
-}
-
-export interface Props {
-  links: Array<Links>;
-  secondaryLinks: Array<Link>;
-  socialLinks: Array<Link>;
-  footNote?: string;
-  theme?: string;
-}
-
-const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme = 'light' } = Astro.props;
----
-
-<footer class:list={[{ dark: theme === 'dark' }, 'relative border-t border-gray-200 dark:border-slate-800 mt-10']}>
-  <div class="dark:bg-dark absolute inset-0 pointer-events-none" aria-hidden="true"></div>
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 dark:text-black">
-    <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12">
-      <div class="col-span-12 lg:col-span-4 ">
-        <div class="mb-2">
-          <a class="inline-block font-bold text-5xl" href="">Thuận Gió</a>
-        </div>
-        <div class="text-sm text-muted">
-          {
-            secondaryLinks.map(({ text, href }) => (
-              <a
-                class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out mr-2"
-                href={href}
-                set:html={text}
-              />
-            ))
-          }
-        </div>
-      </div>
-      {
-        links.map(({ title, links }) => (
-          <div class="col-span-6 md:col-span-3 lg:col-span-2">
-            <div class="dark:text-gray-300 font-medium mb-2">{title}</div>
-            {links && Array.isArray(links) && links.length > 0 && (
-              <ul class="text-sm">
-                {links.map(({ text, href, ariaLabel }) => (
-                  <li class="mb-2">
-                    <a
-                      class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out"
-                      href={href}
-                      aria-label={ariaLabel}
-                    >
-                      <Fragment set:html={text} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))
-      }
+<div class="body">
+  <footer class="my-20">
+    <div class="waves">
+      <div class="wave" id="wave1"></div>
+      <div class="wave" id="wave2"></div>
+      <div class="wave" id="wave3"></div>
+      <div class="wave" id="wave4"></div>
     </div>
-    <div class="md:flex md:items-center md:justify-between py-6 md:py-8">
-      {
-        socialLinks?.length ? (
-          <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0">
-            {socialLinks.map(({ ariaLabel, href, text, icon }) => (
-              <li>
-                <a
-                  class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-                  aria-label={ariaLabel}
-                  href={href}
-                >
-                  {icon && <Icon name={icon} class="w-5 h-5" />}
-                  <Fragment set:html={text} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          ''
-        )
-      }
-
-      <div class="text-sm mr-4 dark:text-slate-400">
-        <Fragment set:html={footNote} />
-      </div>
-    </div>
+    <ul class="social_icon">
+      <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a> </li>
+      <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a> </li>
+      <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a> </li>
+      <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a> </li>
+    </ul>
+      <ul class="menu">
+        <li><a href="#">Trang chủ</a></li>
+        <li><a href="#">Việc làm</a></li>
+        <li><a href="#">Lí do chọn công ty</a></li>
+        <li><a href="#">Tin tức</a></li>
+        <li><a href="#">Thông tin công ty</a></li>
+      </ul>
+    <p>
+      Copyright © {new Date().getFullYear()} ThuanGio. All rights reserved.
+    </p>
+    
+  </footer>
   </div>
-</footer>
+  <style>
+    /* .body{
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      min-height: 100vh;
+      background: #333;
+    } */
+  footer{
+    position: relative;
+    width: 100%;
+    background: #3586ff;
+    min-height: 100px;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  footer .social_icon,
+  footer .menu{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    z-index: 1001;
+  }
+  footer .social_icon li,
+  footer .menu li{
+    list-style: none;
+  }
+  footer .social_icon li a{
+    font-size: 2em;
+    color: #fff;
+    margin: 0 10px;
+    display: inline-block;
+    transition: 0.5s;
+  }
+  footer .social_icon li a:hover{
+    transform: translateY(-10px);
+  }
+  footer .menu li a{
+    font-size: 1.2em;
+    color: #fff;
+    margin: 0 10px;
+    display: inline-block;
+    text-decoration: none;
+    opacity: 0.75;
+  }
+  footer .menu li a:hover{
+    opacity: 1;
+  }
+  footer p{
+    color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+  footer .wave{
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(public/wave.png);
+    background-size: 1000px 100px;
+  }
+  footer .wave#wave1{
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 4s linear infinite;
+  }
+  footer .wave#wave2{
+    z-index: 999;
+    opacity: 0.5;
+    bottom: 10px;
+    animation: animateWave_02 4s linear infinite;
+  }
+  footer .wave#wave3{
+    z-index: 1000;
+    opacity: 0.2;
+    bottom: 15px;
+    animation: animateWave 3s linear infinite;
+  }
+  footer .wave#wave4{
+    z-index: 999;
+    opacity: 0.7;
+    bottom: 20px;
+    animation: animateWave_02 3s linear infinite;
+  }
+  @keyframes animateWave{
+    0%{
+      background-position-x: 1000px;
+    }
+    100%{
+      background-position-x: 0px;
+    }
+  }
+  @keyframes animateWave_02{
+    0%{
+      background-position-x: 0px;
+    }
+    100%{
+      background-position-x: 1000px;
+    }
+  }
+  </style>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
