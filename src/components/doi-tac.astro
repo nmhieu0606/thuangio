@@ -40,6 +40,7 @@
         position: relative;
         width: 400px;
         height: 400px;
+        top: 50px;
         border-radius: 50%;
         animation: animate 4s linear infinite;
     }
@@ -70,6 +71,7 @@
         margin-left: 80px;
         margin-right: 80px;
         font-weight: 400;
+        margin-top: 300px;
     }
     .planetEarth .loader:after{
         content: '';
@@ -103,10 +105,10 @@
         border-radius: 50%;
     }
     .earth{
-        position: absolute;
+        position: relative;
         width: 340px;
         height: 340px;
-        bottom: 117px;
+        bottom: 320px;
         background: url("public/map_aboutus1.png");
         border-radius: 50%;
         background-size: cover;
@@ -121,5 +123,12 @@
         100%{
             background-position: 162.5%;
         }
+    }
+    @media screen and (max-width: 400px){
+   
+    .planetEarth{
+       height: 1000px;
+    }
+
     }
     </style>
