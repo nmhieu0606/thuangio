@@ -108,19 +108,19 @@ const makeTitle = title
         basic: {
           url: canonicalURL,
           type: "website",
-          title: `Astroship - Starter Template for Astro`,
+          title: `Thuận Gió`,
           image: resolvedImageWithDomain,
         },
         image: {
-          alt: "Astroship Homepage Screenshot",
+          alt: "Thuận Gió Homepage Screenshot",
         },
       }}
     />
   </head>
-  <body class="dark:bg-black">
+  <body class="dark:bg-black dark:text-white">
     <Navbar />
-    <img class="sun cursor-pointer" src="/sun.png" alt=""/>
-    <img class="moon cursor-pointer" src="/moon.png" alt=""/>
+    
+    
     <slot />
     <br><br><br>
     <Footer {...footerData} />
@@ -148,21 +148,24 @@ const makeTitle = title
     }
     </style>
     <script>
-      const sunIcon =document.querySelector(".sun");
-      const moonIcon =document.querySelector(".moon");
+     
+      const checkbox =document.querySelector(".check-mode");
       const userTheme = localStorage.getItem("theme");
+      const textWhite=document.querySelector(".mode-white");
+      const textDark=document.querySelector(".mode-dark");
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
       const iconToggle = () =>{
-        moonIcon.classList.toggle("display-none");
-        sunIcon.classList.toggle("display-none");
+        textWhite.classList.toggle("display-none");
+        textDark.classList.toggle("display-none");
+        
       };
       const themeCheck = () =>{
         if(userTheme === "dark" || (!userTheme && systemTheme)) {
           document.documentElement.classList.add("dark");
-          sunIcon.classList.add("display-none");
+          textDark.classList.add("display-none");
           return;
         }
-        moonIcon.classList.add("display-none");
+          textWhite.classList.add("display-none");
       };
       const themeSwitch = () => {
         if (document.documentElement.classList.contains("dark")) {
@@ -175,12 +178,10 @@ const makeTitle = title
         localStorage.setItem("theme", "dark");
         iconToggle();
       };
-      sunIcon.addEventListener("click", ()=>{
+      checkbox.addEventListener("click", ()=>{
         themeSwitch();
       });
-      moonIcon.addEventListener("click", ()=>{
-        themeSwitch();
-      });
+     
       themeCheck();
     </script>
   </body>
