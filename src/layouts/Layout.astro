@@ -87,7 +87,7 @@ const makeTitle = title
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -117,8 +117,10 @@ const makeTitle = title
       }}
     />
   </head>
-  <body>
+  <body class="dark:bg-black">
     <Navbar />
+    <img class="sun cursor-pointer" src="public/sun.png" alt=""/>
+    <img class="moon cursor-pointer" src="public/moon.png" alt=""/>
     <slot />
     <br><br><br>
     <Footer {...footerData} />
@@ -128,6 +130,58 @@ const makeTitle = title
       img {
         content-visibility: auto;
       }
+    .sun{
+      width: 50px;
+      height: 50px;
+      margin-left: 10px;
+    }
+    .moon{
+      margin-top: -1px;
+      width: 70px;
+      height: 55px;
+    }
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    .display-none{
+      @apply hidden;
+    }
     </style>
+    <script>
+      const sunIcon =document.querySelector(".sun");
+      const moonIcon =document.querySelector(".moon");
+      const userTheme = localStorage.getItem("theme");
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const iconToggle = () =>{
+        moonIcon.classList.toggle("display-none");
+        sunIcon.classList.toggle("display-none");
+      };
+      const themeCheck = () =>{
+        if(userTheme === "dark" || (!userTheme && systemTheme)) {
+          document.documentElement.classList.add("dark");
+          sunIcon.classList.add("display-none");
+          return;
+        }
+        moonIcon.classList.add("display-none");
+      };
+      const themeSwitch = () => {
+        if (document.documentElement.classList.contains("dark")) {
+          document.documentElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+          iconToggle();
+          return;
+        }
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+        iconToggle();
+      };
+      sunIcon.addEventListener("click", ()=>{
+        themeSwitch();
+      });
+      moonIcon.addEventListener("click", ()=>{
+        themeSwitch();
+      });
+      themeCheck();
+    </script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 <div class="body">
     <div class="planet planetEarth">
-        <div class="container">
+        <div class="container dark:bg-[url('public/star.jpg')]">
             <div class="text"> Thuận Gió hiện là đối tác tin cậy có nhiều năm kinh nghiệm thực hiện những dự án lớn & phức tạp với những công nghệ mới nhất với hơn 100 khách hàng đến từ 30 quốc gia trên thế giới.</div>
             <div class="loader"><span></span></div>
             <div class="earth"></div>
@@ -124,11 +124,46 @@
             background-position: 162.5%;
         }
     }
-    @media screen and (max-width: 400px){
+    @media screen and (max-width: 450px){
    
     .planetEarth{
        height: 1000px;
     }
+    .earth{
+        width: 250px;
+        height: 250px;
 
     }
+    .planetEarth .loader{
+        width: 300px;
+        height: 300px;
+        top: 50px;
+       margin-bottom: 95px;
+    }
+
+    }
+    @media screen and (max-width: 300px){
+   
+   .planetEarth{
+      height: 500px;
+   }
+   .text{
+        font-size: 20px;
+        margin-left: 45px;
+        margin-right: 20px;
+        font-weight: 300;
+    }
+   .earth{
+       width: 100px;
+       height: 100px;
+
+   }
+   .planetEarth .loader{
+       width: 150px;
+       height: 150px;
+       top: 50px;
+      margin-bottom: 244px;
+   }
+
+   }
     </style>
