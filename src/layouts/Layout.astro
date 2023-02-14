@@ -20,59 +20,58 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 export const footerData = {
   links: [
     {
-      title: 'Product',
+      title: "Product",
       links: [
-        { text: 'Features', href: '#' },
-        { text: 'Security', href: '#' },
-        { text: 'Team', href: '#' },
-        { text: 'Enterprise', href: '#' },
-        { text: 'Customer stories', href: '#' },
-        { text: 'Pricing', href: '#' },
-        { text: 'Resources', href: '#' },
+        { text: "Features", href: "#" },
+        { text: "Security", href: "#" },
+        { text: "Team", href: "#" },
+        { text: "Enterprise", href: "#" },
+        { text: "Customer stories", href: "#" },
+        { text: "Pricing", href: "#" },
+        { text: "Resources", href: "#" },
       ],
     },
     {
-      title: 'Platform',
+      title: "Platform",
       links: [
-        { text: 'Developer API', href: '#' },
-        { text: 'Partners', href: '#' },
-        { text: 'Atom', href: '#' },
-        { text: 'Electron', href: '#' },
-        { text: 'AstroWind Desktop', href: '#' },
+        { text: "Developer API", href: "#" },
+        { text: "Partners", href: "#" },
+        { text: "Atom", href: "#" },
+        { text: "Electron", href: "#" },
+        { text: "AstroWind Desktop", href: "#" },
       ],
     },
     {
-      title: 'Support',
+      title: "Support",
       links: [
-        { text: 'Docs', href: '#' },
-        { text: 'Community Forum', href: '#' },
-        { text: 'Professional Services', href: '#' },
-        { text: 'Skills', href: '#' },
-        { text: 'Status', href: '#' },
+        { text: "Docs", href: "#" },
+        { text: "Community Forum", href: "#" },
+        { text: "Professional Services", href: "#" },
+        { text: "Skills", href: "#" },
+        { text: "Status", href: "#" },
       ],
     },
     {
-      title: 'Company',
+      title: "Company",
       links: [
-        { text: 'About', href: '#' },
-        { text: 'Blog', href: '#' },
-        { text: 'Careers', href: '#' },
-        { text: 'Press', href: '#' },
-        { text: 'Inclusion', href: '#' },
-        { text: 'Social Impact', href: '#' },
-        { text: 'Shop', href: '#' },
+        { text: "About", href: "#" },
+        { text: "Blog", href: "#" },
+        { text: "Careers", href: "#" },
+        { text: "Press", href: "#" },
+        { text: "Inclusion", href: "#" },
+        { text: "Social Impact", href: "#" },
+        { text: "Shop", href: "#" },
       ],
     },
   ],
- 
+
   socialLinks: [
-    { ariaLabel: 'Twitter', icon: 'tabler:brand-twitter', href: '#' },
-    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
-    { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },
-    { ariaLabel: 'RSS', icon: 'tabler:rss', href:'/rss'},
-    { ariaLabel: 'Github', icon: 'tabler:brand-github', href: '' },
+    { ariaLabel: "Twitter", icon: "tabler:brand-twitter", href: "#" },
+    { ariaLabel: "Instagram", icon: "tabler:brand-instagram", href: "#" },
+    { ariaLabel: "Facebook", icon: "tabler:brand-facebook", href: "#" },
+    { ariaLabel: "RSS", icon: "tabler:rss", href: "/rss" },
+    { ariaLabel: "Github", icon: "tabler:brand-github", href: "" },
   ],
-  
 };
 const resolvedImageWithDomain = new URL(
   "/opengraph.jpg",
@@ -87,7 +86,7 @@ const makeTitle = title
 ---
 
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -119,10 +118,9 @@ const makeTitle = title
   </head>
   <body class="dark:bg-black dark:text-white">
     <Navbar />
-    
-    
+
     <slot />
-    <br><br><br>
+    <br /><br /><br />
     <Footer {...footerData} />
     <style is:global>
       /* Improve Page speed */
@@ -130,45 +128,46 @@ const makeTitle = title
       img {
         content-visibility: auto;
       }
-      body{
+      body {
         height: 500px;
       }
-    .sun{
-      width: 50px;
-      height: 50px;
-      margin-left: 10px;
-    }
-    .moon{
-      margin-top: -1px;
-      width: 70px;
-      height: 55px;
-    }
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
-    .display-none{
-      @apply hidden;
-    }
+      .sun {
+        width: 50px;
+        height: 50px;
+        margin-left: 10px;
+      }
+      .moon {
+        margin-top: -1px;
+        width: 70px;
+        height: 55px;
+      }
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+      .display-none {
+        @apply hidden;
+      }
     </style>
     <script>
-     
-      const checkbox =document.querySelector(".check-mode");
+      const checkbox = document.querySelector(".check-mode");
       const userTheme = localStorage.getItem("theme");
-      const textWhite=document.querySelector(".mode-white");
-      const textDark=document.querySelector(".mode-dark");
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const iconToggle = () =>{
+      const textWhite = document.querySelector(".mode-white");
+      const textDark = document.querySelector(".mode-dark");
+      const systemTheme = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      const iconToggle = () => {
         textWhite.classList.toggle("display-none");
         textDark.classList.toggle("display-none");
-        
       };
-      const themeCheck = () =>{
-        if(userTheme === "dark" || (!userTheme && systemTheme)) {
+      const themeCheck = () => {
+        if (userTheme === "dark" || (!userTheme && systemTheme)) {
           document.documentElement.classList.add("dark");
           textDark.classList.add("display-none");
+          checkbox.checked=true;
           return;
         }
-          textWhite.classList.add("display-none");
+        textWhite.classList.add("display-none");
       };
       const themeSwitch = () => {
         if (document.documentElement.classList.contains("dark")) {
@@ -181,10 +180,16 @@ const makeTitle = title
         localStorage.setItem("theme", "dark");
         iconToggle();
       };
-      checkbox.addEventListener("click", ()=>{
-        themeSwitch();
+      checkbox.addEventListener("change", function () {
+        if (this.checked) {
+          themeSwitch();
+        }
+        else{
+          themeSwitch();
+
+        }
       });
-     
+
       themeCheck();
     </script>
   </body>

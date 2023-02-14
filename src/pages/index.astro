@@ -46,7 +46,7 @@ const features = [
     content:
       "Quản lý HS cán bộ giảng viên, công nhân viên, chấm công và tính lương,...",
     img: "https://www.tma.vn/Themes/TMAVN.Theme/Images/whyTMA-choose-2.jpg",
-    href: "/",
+    
   },
 ];
 ---
@@ -98,11 +98,11 @@ const features = [
 
       {
         features.map((item) => (
-          <Features
+          <Features 
             content={item.content}
             img={item.img}
             title={item.title}
-            href={item.href}
+            
           />
         ))
       }

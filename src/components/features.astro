@@ -7,7 +7,7 @@ export interface Props {
   title: string;
   content: string;
   img?: string;
-  href: string;
+  href?: string;
   avartar?: string;
   category?: string;
 }
@@ -20,11 +20,11 @@ const { title, content, img, href, avartar, category } = Astro.props;
 -->
 <div class="mx-auto">
   <a href={href}>
-    <h3 class="font-semibold text-lg text-center">{title}</h3>{" "}
+    <h3 class="font-semibold text-lg text-center">{title}</h3>
     <p class="text-slate-500 mt-2 leading-relaxed"></p>
     <div class="card">
       <div class="poster">
-        <Picture
+        <Picture 
           src={img}
           format="avif"
           alt="Team"
