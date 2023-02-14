@@ -136,10 +136,10 @@ const makeTitle = title
       }
     </style>
     <script>
-      const checkbox = document.querySelector(".check-mode");
+     
       const userTheme = localStorage.getItem("theme");
-      const textWhite = document.querySelector(".mode-white");
-      const textDark = document.querySelector(".mode-dark");
+      const textWhite = document.querySelector("#sun");
+      const textDark = document.querySelector("#moon");
       const systemTheme = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
@@ -150,33 +150,37 @@ const makeTitle = title
       const themeCheck = () => {
         if (userTheme === "dark" || (!userTheme && systemTheme)) {
           document.documentElement.classList.add("dark");
-          textDark.classList.add("display-none");
-          checkbox.checked=true;
+          
+          textWhite.classList.remove("hidden");
           return;
         }
-        textWhite.classList.add("display-none");
+       
+        textDark.classList.remove("hidden");
+        
       };
       const themeSwitch = () => {
         if (document.documentElement.classList.contains("dark")) {
           document.documentElement.classList.remove("dark");
           localStorage.setItem("theme", "light");
-          iconToggle();
+          
           return;
         }
         document.documentElement.classList.add("dark");
         localStorage.setItem("theme", "dark");
-        iconToggle();
+        
       };
-      checkbox.addEventListener("change", function () {
-        if (this.checked) {
-          themeSwitch();
-        }
-        else{
-          themeSwitch();
-
-        }
+      textWhite.addEventListener('click',()=>{
+        themeSwitch();
+        textWhite.classList.add("hidden");
+        textDark.classList.remove("hidden");
       });
-
+      textDark.addEventListener('click',()=>{
+        themeSwitch();
+        textDark.classList.add("hidden");
+        textWhite.classList.remove("hidden");
+      });
+      
+      
       themeCheck();
     </script>
   </body>
