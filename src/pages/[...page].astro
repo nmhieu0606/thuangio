@@ -1,0 +1,84 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Features from "@components/features.astro";
+import Footer from "@components/footer.astro";
+import Hero from "@components/hero.astro";
+import Map from "@components/map.astro";
+import Slider from "@components/slider.astro";
+import Features2 from "@components/Features2.astro";
+//import Logos from "@components/logos.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection, CollectionEntry } from "astro:content";
+import { formatBlogPosts } from "js/utils";
+export async function getStaticPaths({ paginate }) {
+  const allPost = await getCollection("blog");
+  const Post: CollectionEntry<"blog">[] = formatBlogPosts(allPost);
+  return paginate(Post, {
+    pageSize: 3,
+  });
+}
+const { page } = Astro.props;
+---
+
+<Layout title="Index">
+  <Cta />
+  <Container>
+    <div class="grid gap-1 mt-10">
+      <div class="text-center text-blue-600 sm:text-5xl">
+        <h1 class="dark:text-white">Các lĩnh vực</h1>
+      </div>
+    </div>
+    <div class="dark:text-gray-300">
+      <Features2
+        subtitle="rovides frequently used components for building websites using Tailwind CSS"
+        title="Tại sao lại chọn chúng tôi?"
+        highlight=""
+        items={[
+          {
+            title: "Headers",
+            description:
+              "In general, Headers contain information that makes it easier for visitors to interact with the website.",
+            icon: "flat-color-icons:template",
+          },
+          {
+            title: "Heros",
+            description:
+              "If you want your website to get more than its fair share of visitors, the Hero section needs to be stellar.",
+            icon: "flat-color-icons:gallery",
+          },
+          {
+            title: "Features",
+            description:
+              "Display your product in action and how the Features actually create a solution for your target customer.",
+            icon: "flat-color-icons:todo-list",
+          },
+        ]}
+      />
+    </div>
+
+    <div class="grid gap-1 mt-10">
+      <div class="text-center text-blue-600 sm:text-5xl">
+        <h1 class="dark:text-white">Tin Tức</h1>
+      </div>
+    </div>
+    <div
+      class="grid sm:grid-cols-3 md:grid-cols-3 mt-16 gap-4 sm:text-2xl items-center">
+      {
+        page.data.map((item) => (
+          <Features
+            content={item.data.content}
+            img={item.data.image.src}
+            title={item.data.title}
+          />
+        ))
+      }
+    </div>
+    <div class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 text-center align-center mt-5">
+      <a href={`/blog/`} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Xem Thêm
+        <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+      </a>
+    </div>
+  </Container>
+</Layout>
