@@ -43,13 +43,12 @@ const menuitems = [
   },
 ];
 ---
-
 <Container>
-  <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+  <header class="flex flex-col lg:flex-row justify-between items-center my-0 dark:bg-black">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
         <a href="/" class="text-lg"
-          ><span class="font-bold text-slate-800 dark:text-gray-300"
+          ><span class="font-bold text-slate-800 dark:text-gray-300 ml-5"
             >Thuận Gió</span
           ><span class="text-slate-500"></span>
         </a>
@@ -110,5 +109,16 @@ const menuitems = [
 <style>
   .body {
     z-index: 1;
+  }
+  @media screen and (min-width: 1024px) {
+    header{
+      position: fixed;
+      background-color: white;
+      z-index: 50;
+      width: 100%;
+      left: 0px;
+      top: 0px;
+      height: 4rem;
+    }
   }
 </style>

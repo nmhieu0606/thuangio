@@ -1,6 +1,7 @@
 ---
 import Container from "@components/container.astro";
 import Cta from "@components/cta.astro";
+import Progress from "@components/progress.astro";
 import Features from "@components/features.astro";
 import Footer from "@components/footer.astro";
 import Hero from "@components/hero.astro";
@@ -52,7 +53,10 @@ const features = [
 ---
 
 <Layout title="Index">
+  <br><br>
+  
   <Cta></Cta>
+ 
   <Container>
     
     <div class="grid gap-1 mt-10">
@@ -107,7 +111,13 @@ const features = [
         ))
       }
     </div>
+    <div class="grid gap-1 mt-10">
+      <div class="text-center text-blue-600 sm:text-5xl">
+        <h1 class="dark:text-white">Tiến Triển</h1>
+      </div>
+    </div>
+    <Progress></Progress>
+    
   </Container>
 
-  
 </Layout>

@@ -117,9 +117,11 @@ const makeTitle = title
     />
   </head>
   <body class="dark:bg-black dark:text-white">
+   
     <Navbar />
-
+    
     <slot />
+    
     <br /><br /><br />
     <Footer {...footerData} />
     <style is:global>
@@ -134,7 +136,13 @@ const makeTitle = title
       .display-none {
         @apply hidden;
       }
+      body{
+        height: 500px;
+      }
+      
     </style>
+
+
     <script>
      
       const userTheme = localStorage.getItem("theme");
@@ -183,5 +191,7 @@ const makeTitle = title
       
       themeCheck();
     </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </body>
 </html>
