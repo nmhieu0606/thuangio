@@ -1,0 +1,20 @@
+---
+export interface Props {
+  title: string;
+  color: string;
+  hover_color?: string;
+  rounded: string;
+  text_size: string;
+  dark_color: string;
+  other?: string;
+  text_color:string,
+  text_color_dark:string,
+}
+const {title,color,hover_color,rounded,text_size,dark_color,other,text_color,text_color_dark}=Astro.props;
+---
+
+<button
+  type="button"
+  class= {`${text_color} bg-${color} hover:${hover_color} focus:ring-4 focus:ring-blue-300 font-medium ${rounded} ${text_size} px-5 py-2.5 mr-2 mb-2 dark:bg-${dark_color} dark:text-${text_color_dark} dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 ${other}`}
+  >{title}</button
+>
