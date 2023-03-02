@@ -1,19 +1,34 @@
 ---
-import { formatBlogPosts } from "js/utils";
+import { log } from "astro/dist/core/logger/core";
 import { getCollection, CollectionEntry } from "astro:content";
-import Pagination2 from "@components/Pagination_2.astro";
-import Features from "@components/features.astro";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
+import Features from "@components/features.astro";
+import Pagination2 from "@components/Pagination_2.astro";
 import CategoryCloud from "@components/CategoryCloud.astro";
+import { formatBlogPosts } from "js/utils";
 export async function getStaticPaths({ paginate }) {
-  const res = await fetch(
-    "http://127.0.0.1:1337/api/posts?sort[0]=createdAt%3Adesc&populate=*"
-  );
-  const data = await res.json();
+  const res = await fetch("http://127.0.0.1:1337/api/posts?populate=*");
+  const allPosts = await res.json();
+  const category = await fetch("http://127.0.0.1:1337/api/categories");
+  const allCategories = await category.json();
+  
+  
+  return allCategories.data.map((category) => {
+   
+  
+   
+    const filter = allPosts.data.filter(
+      (p) => p.attributes.category.data.attributes.slug === category.attributes.slug
+    );
 
-  return paginate(data.data, {
-    pageSize: 3,
+   console.log(filter);
+   
+    
+    return paginate(filter, {
+      params: { category: category.attributes.slug },
+      pageSize: 3,
+    });
   });
 }
 const { page } = Astro.props;
@@ -29,30 +44,26 @@ const filter = img.filter((item) => {
 const temp = filter.map((item) => {
   return item.data.attributes;
 });
-
-
 ---
 
 <Layout title="blog">
   <Container>
     <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-3">
       {
-        page.data.map((item,index) => (
-         
+        page.data.map((item) => (
           <Features
             href={`/blog/${item.attributes.slug}`}
             description={item.attributes.description}
             title={item.attributes.title}
-            
-            img={`http://127.0.0.1:1337${temp[index].url}`}
+            img={`http://127.0.0.1:1337${temp[0].url}`}
           />
         ))
       }
     </div>
-    <div
-      class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 items-center text-center mt-5">
+    <div class="gird items-center text-center mt-5">
       <Pagination2 prev={page.url.prev} next={page.url.next} />
     </div>
-    <CategoryCloud />
+    <CategoryCloud></CategoryCloud>
+
   </Container>
 </Layout>

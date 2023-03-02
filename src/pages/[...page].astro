@@ -12,13 +12,31 @@ import Layout from "@layouts/Layout.astro";
 import { getCollection, CollectionEntry } from "astro:content";
 import { formatBlogPosts } from "js/utils";
 export async function getStaticPaths({ paginate }) {
-  const allPost = await getCollection("blog");
-  const Post: CollectionEntry<"blog">[] = formatBlogPosts(allPost);
-  return paginate(Post, {
+  const res = await fetch(
+    "http://127.0.0.1:1337/api/posts?sort[0]=createdAt%3Adesc&populate=*"
+  );
+  const data = await res.json();
+
+  return paginate(data.data, {
     pageSize: 3,
   });
 }
 const { page } = Astro.props;
+
+const img = page.data.map((item) => {
+  return item.attributes.image;
+});
+const filter = img.filter((item) => {
+  if (item.data != null) {
+    return item.data;
+  }
+});
+
+const temp = filter.map((item) => {
+  return item.data.attributes;
+});
+
+
 ---
 
 <Layout title="Index">
@@ -64,16 +82,21 @@ const { page } = Astro.props;
     </div>
     <div
       class="grid sm:grid-cols-3 md:grid-cols-3 mt-16 gap-4 sm:text-2xl items-center">
-      {
-        page.data.map((item) => (
-          <Features href={`/blog/${item.slug}/`}
-            content={item.data.content}
-            img={item.data.image.src}
-            title={item.data.title}
-          />
-        ))
-      }
-    </div>
+     
+        {
+          page.data.map((item,index) => (
+           
+            <Features
+              href={`/blog/${item.attributes.slug}`}
+              description={item.attributes.description}
+              title={item.attributes.title}
+              
+              img={`http://127.0.0.1:1337${temp[index].url}`}
+            />
+          ))
+        }
+      </div>
+    
     <div class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 text-center align-center mt-5">
       <a href={`/blog/`} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Xem Thêm

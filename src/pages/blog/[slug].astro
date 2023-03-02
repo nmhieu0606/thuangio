@@ -3,36 +3,33 @@ import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 import { getCollection, CollectionEntry } from "astro:content";
 import CategoryCloud from "@components/CategoryCloud.astro";
+import {toSlug } from "js/utils";
 export async function getStaticPaths() {
-  const blogPosts = await getCollection("blog", ({ data }) => {
-    return !data.draft && data.date < new Date();
-  });
-  return blogPosts.map((item) => ({
-    params: { slug: item.slug },
+  const res=await fetch('http://127.0.0.1:1337/api/posts?populate=*');
+  const data=await res.json();
+  return data.data.map((item) => ({
+    params: { slug: item.attributes.slug },
     props: { item },
   }));
 }
-interface Props {
-  item: CollectionEntry<"blog">;
-}
+
 const { item } = Astro.props;
-const { Content } = await item.render();
 ---
 
 <Layout title="">
   <Container>
-    <p class="text-5xl text-center">{item.data.title}</p>
+    <p class="text-5xl text-center">{item.attributes.title}</p>
     <div class="flex space-x-2 justify-center mt-5">
-      <span class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded"> <a href={`/category/${item.data.category}/`}>{item.data.category}</a></span>
+      <span class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded"> <a href={`/category/${item.attributes.category.data.attributes.slug}`}>{item.attributes.category.data.attributes.name}</a></span>
     </div>
     
 
     <div class="mt-5">
-      <Content />
+      {item.attributes.content}
     </div>
     <div class="text-center ">
       <p class="px-2">Created by</p>
-      <a class="text-blue-700" href={`/author/${item.data.author}/`}>{item.data.author}</a>
+      <a class="text-blue-700" href={`/author/${item.attributes.createdBy.data.attributes.username}`}>{item.attributes.createdBy.data.attributes.firstname} {item.attributes.createdBy.data.attributes.lastname}</a>
     </div>
   </Container>
   <CategoryCloud></CategoryCloud>

@@ -6,9 +6,12 @@ import sitemap from "@astrojs/sitemap";
 import netlify from '@astrojs/netlify/edge-functions';
 
 // https://astro.build/config
+
+// https://astro.build/config
 export default defineConfig({
-  site: "https://astroship.web3templates.com",
+
+  site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
-  }), mdx(), sitemap()]
+  }), mdx(), sitemap({filter: (page) => page !== 'https://stargazers.club/blog'})]
 });

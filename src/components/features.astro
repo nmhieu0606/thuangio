@@ -5,13 +5,14 @@ import { Picture } from "@astrojs/image/components";
 
 export interface Props {
   title: string;
-  content: string;
+  content?: string;
   img?: string;
   href?: string;
   avartar?: string; 
   category?: string;
+  description?:string;
 }
-const { title, content, img, href, avartar, category } = Astro.props;
+const { title, content, img, href, avartar, category,description } = Astro.props;
 ---
 
 <!-- <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
@@ -38,7 +39,7 @@ const { title, content, img, href, avartar, category } = Astro.props;
       <div class="details">
         <h3>{title}</h3>
         <div class="info">
-          <span>{content}</span>
+          <span>{description}</span>
         </div>
       </div>
     </div>

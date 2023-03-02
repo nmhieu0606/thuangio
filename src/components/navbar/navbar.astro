@@ -3,45 +3,10 @@ import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+const res=await fetch('http://127.0.0.1:1337/api/nav?populate=*');
+const data=await res.json();
 
-const menuitems = [
-  {
-    title: "Trang Chủ",
-    path: "/",
-  },
-  {
-    title: "Việc làm",
-    path: "#",
-    children: [
-      { title: "Đã Có kinh Nghiệm", path: "/viec-lam" },
-      { title: "Mới Tốt Nghiệp", path: "#" },
-      { title: "Thực Tập", path: "#" },
-    ],
-  },
-  {
-    title: "Lí Do chọn Công Ty",
-    path: "#",
-    children: [
-      { title: "Dịch vụ - Đối tác ", path: "/dich-vu-doi-tac" },
-      {
-        title: "Môi trường làm việc chuyên nghiệp",
-        path: "/moi-truong-lam-viec",
-      },
-      { title: "Cơ hội đào tạo và phát triển sự nghiệp", path: "#" },
-      { title: "Phúc lợi và thu nhập cạnh tranh", path: "#" },
-      { title: "Hoạt động ngoại khóa phong phú", path: "#" },
-    ],
-  },
-  {
-    title: "Tin Tức",
-    path: "/blog",
-  },
 
-  {
-    title: "Thông tin công ty",
-    path: "/thong-tin-cong-ty",
-  },
-];
 ---
 
 <Container>
@@ -62,21 +27,22 @@ const menuitems = [
             
           </li>
           {
-            menuitems.map((item, index) => (
+           data.data.attributes.navitem.map((item, index) => (
               <>
                 <div class="body">
-                  {item.children && (
+                  {item.Link && (
                     <Dropdown
                       title={item.title}
-                      children={item.children}
-                      lastItem={index === menuitems.length - 1}
+                      children={item.Link}
+                      lastItem={index === data.length - 1}
                     />
+                    
                   )}
                 </div>
-                {!item.children && (
+                {!item.Link && (
                   <li>
                     <a
-                      href={item.path}
+                      href={item.href}
                       class="flex lg:px-3 py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300">
                       {item.title}
                     </a>
