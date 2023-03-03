@@ -11,7 +11,7 @@ import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths({ paginate }) {
   const res = await fetch(
-    "http://127.0.0.1:1337/api/posts?sort[0]=createdAt%3Adesc&populate=*"
+    "http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*"
   );
   const data = await res.json();
 
@@ -19,7 +19,7 @@ export async function getStaticPaths({ paginate }) {
     pageSize: 3,
   });
 }
-const local = "http://127.0.0.1:1337";
+const local = "http://tailwind-tvg6.onrender.com";
 const { page } = Astro.props;
 
 const img = page.data.map((item) => {
@@ -59,7 +59,7 @@ const hero2=await hr.json();
     {
      (hero2&&(
        hero2.data.attributes.items.map((item)=>(
-        <Hero2 content={item.caption}  img={local+item.image.data.attributes.url}/>
+        <Hero2 content={item.caption}  img={item.image.data.attributes.url}/>
       ))
      ))
     }
@@ -85,7 +85,7 @@ const hero2=await hr.json();
             href={`/blog/${item.attributes.slug}`}
             description={item.attributes.description}
             title={item.attributes.title}
-            img={`http://127.0.0.1:1337${temp[index].url}`}
+            img={temp[index].url}
           />
         ))
       }

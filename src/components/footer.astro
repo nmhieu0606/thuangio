@@ -1,7 +1,7 @@
 ---
 import { map } from "astro/zod";
 
-const res=await fetch('http://127.0.0.1:1337/api/footer/');
+const res=await fetch('http://tailwind-tvg6.onrender.com/api/footer/');
 const data=await res.json();
 
 const filter_icon= data.data.attributes.footer.filter((item)=>{
