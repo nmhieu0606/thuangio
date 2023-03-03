@@ -8,9 +8,9 @@ import Pagination2 from "@components/Pagination_2.astro";
 import CategoryCloud from "@components/CategoryCloud.astro";
 import { formatBlogPosts } from "js/utils";
 export async function getStaticPaths({ paginate }) {
-  const res = await fetch("http://127.0.0.1:1337/api/posts?populate=*");
+  const res = await fetch("http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*");
   const allPosts = await res.json();
-  const category = await fetch("http://127.0.0.1:1337/api/categories");
+  const category = await fetch("http://tailwind-tvg6.onrender.com/api/categories");
   const allCategories = await category.json();
 
   return allCategories.data.map((category) => {
@@ -51,7 +51,7 @@ const temp = filter.map((item) => {
             href={`/blog/${item.attributes.slug}`}
             description={item.attributes.description}
             title={item.attributes.title}
-            img={`http://127.0.0.1:1337${temp[index].url}`}
+            img={temp[index].url}
           />
         ))
       }

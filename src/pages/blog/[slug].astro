@@ -5,7 +5,7 @@ import { getCollection, CollectionEntry } from "astro:content";
 import CategoryCloud from "@components/CategoryCloud.astro";
 import {toSlug } from "js/utils";
 export async function getStaticPaths() {
-  const res=await fetch('http://127.0.0.1:1337/api/posts?populate=*');
+  const res=await fetch('http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*');
   const data=await res.json();
   return data.data.map((item) => ({
     params: { slug: item.attributes.slug },

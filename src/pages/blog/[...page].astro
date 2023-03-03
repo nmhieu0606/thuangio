@@ -8,12 +8,10 @@ import Container from "@components/container.astro";
 import CategoryCloud from "@components/CategoryCloud.astro";
 export async function getStaticPaths({ paginate }) {
   const res = await fetch(
-    "http://127.0.0.1:1337/api/posts?populate=*&sort[0]=createdAt%3Adesc"
+    "http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*"
   );
   const data = await res.json();
-
-  
-  return paginate(data1, {
+  return paginate(data.data, {
     pageSize: 3,
   });
 }
@@ -31,7 +29,6 @@ const temp = filter.map((item) => {
   return item.data.attributes;
 });
 
-
 ---
 
 <Layout title="blog">
@@ -45,7 +42,7 @@ const temp = filter.map((item) => {
             description={item.attributes.description}
             title={item.attributes.title}
             
-            img={`http://127.0.0.1:1337${temp[index].url}`}
+            img={temp[index].url}
           />
         ))
       }
@@ -54,6 +51,6 @@ const temp = filter.map((item) => {
       class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 items-center text-center mt-5">
       <Pagination2 prev={page.url.prev} next={page.url.next} />
     </div>
-    <CategoryCloud />
+    
   </Container>
 </Layout>

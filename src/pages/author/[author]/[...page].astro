@@ -10,9 +10,9 @@ import CategoryCloud from "@components/CategoryCloud.astro";
 import { log } from "astro/dist/core/logger/core";
 export async function getStaticPaths({ paginate }) {
   //const res=await fetch('http://localhost:1337/api/posts?populate=createdBy&[filters][createdBy][lastname]=Hi%E1%BA%BFu');
-  const res = await fetch("http://127.0.0.1:1337/api/posts?populate=*");
+  const res = await fetch("http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*");
   const allPosts = await res.json();
-  const user = await fetch("http://127.0.0.1:1337/api/users");
+  const user = await fetch("http://tailwind-tvg6.onrender.com/api/users");
   const allUsers = await user.json();
   const t = {
     data: allUsers,
@@ -49,12 +49,12 @@ const temp = filter.map((item) => {
     <div
       class="gap-4 grid sm:grid-cols-1 sm:gap-1 md:grid-cols-3 xl:grid-cols-3">
       {
-        page.data.map((item) => (
+        page.data.map((item,index) => (
           <Features
             href={`/blog/${item.attributes.slug}`}
             description={item.attributes.description}
             title={item.attributes.title}
-            img={`http://127.0.0.1:1337${temp[0].url}`}
+            img={temp[index].url}
           />
         ))
       }

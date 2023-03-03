@@ -2,7 +2,7 @@
 import { formatBlogPosts } from "js/utils";
 import { getCollection } from "astro:content";
 import { object } from "astro/zod";
-const res=await fetch('http://127.0.0.1:1337/api/posts?populate=*');
+const res=await fetch('http://tailwind-tvg6.onrender.com/api/posts?populate=*');
 const allPosts=await res.json();
 const allCategory = allPosts.data.map((cat) => cat.attributes.category.data.attributes.slug).flat();
 const catPost = allCategory.reduce((item, index) => {
