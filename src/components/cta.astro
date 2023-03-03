@@ -1,32 +1,20 @@
 ---
 import { Icon } from "astro-icon";
 import Slider from "./slider.astro";
+import Button from "./shared/button.astro";
 const res = await fetch("http://127.0.0.1:1337/api/slider");
 const data = await res.json();
+
 
 ---
 
 <section class="hero-section__section bg-slate-300 rounded-lg dark:bg-gray-800">
   <div class="hero-section__text text-xl text-center p-10">
     <div class="main" id="particles-js"></div>
-    <h1 class="text-2xl font-bold dark:text-gray-300">TailWind</h1>
+    <h1 class="text-2xl font-bold dark:text-gray-300">{data.data.attributes.title}</h1>
     <p></p>
-    <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-      <div class="rounded-md shadow">
-        <a
-          href="#"
-          class="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-800 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 dark:bg-gray-500 dark:hover:bg-black"
-          >Get started</a
-        >
-      </div>
-      <div class="mt-3 sm:mt-0 sm:ml-3">
-        <a
-          href="#"
-          class="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-800 px-8 py-3 text-base font-medium text-primary-700 hover:bg-gray-500 dark:bg-gray-500 dark:hover:bg-black dark:text-blue-800"
-          >Live demo</a
-        >
-      </div>
-    </div>
+   
+  
     <div class="hero-btns__container"></div>
   </div>
   <div class="hero-section__image pl-6 pt-10 pb-10">
@@ -118,6 +106,7 @@ const data = await res.json();
   }
   img {
     vertical-align: middle;
+    
   }
   .dot {
     visibility: hidden;
@@ -211,3 +200,5 @@ const data = await res.json();
     setTimeout(showSlides, 4000); // Change image every 2 seconds
   }
 </script>
+<script type="text/javascript" src="/particles.js"></script>
+<script type="text/javascript" src="/app.js"></script>

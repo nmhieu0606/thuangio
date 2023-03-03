@@ -12,12 +12,8 @@ export async function getStaticPaths({ paginate }) {
   const allPosts = await res.json();
   const category = await fetch("http://127.0.0.1:1337/api/categories");
   const allCategories = await category.json();
-  
-  
+
   return allCategories.data.map((category) => {
-   
-  
-   
     const filter = allPosts.data.filter(
       (p) => p.attributes.category.data.attributes.slug === category.attributes.slug
     );
@@ -50,12 +46,12 @@ const temp = filter.map((item) => {
   <Container>
     <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-3">
       {
-        page.data.map((item) => (
+        page.data.map((item,index) => (
           <Features
             href={`/blog/${item.attributes.slug}`}
             description={item.attributes.description}
             title={item.attributes.title}
-            img={`http://127.0.0.1:1337${temp[0].url}`}
+            img={`http://127.0.0.1:1337${temp[index].url}`}
           />
         ))
       }

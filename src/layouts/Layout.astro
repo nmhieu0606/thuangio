@@ -92,8 +92,11 @@ const makeTitle = title
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
     <script is:inline>
-      
       // It's best to inline this in `head` to avoid FOUC (flash of unstyled content) when changing pages or themes
       if (
         localStorage.getItem("color-theme") === "dark" ||
@@ -104,9 +107,7 @@ const makeTitle = title
       } else {
         document.documentElement.classList.remove("dark");
       }
-
     </script>
-   
 
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
@@ -132,7 +133,6 @@ const makeTitle = title
     />
   </head>
   <body class="dark:bg-black dark:text-white">
-    
     <Navbar />
 
     <slot />
@@ -148,7 +148,7 @@ const makeTitle = title
       .display-none {
         @apply hidden;
       }
-      body{
+      body {
         height: 500px;
       }
     </style>
