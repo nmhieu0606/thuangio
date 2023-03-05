@@ -1,6 +1,2 @@
-[build.environment]
-NPM_FLAGS = "--version"
-
-[build]
-command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm build"
-publish = "dist/"
+[functions]
+external_node_modules = ["astro"]
