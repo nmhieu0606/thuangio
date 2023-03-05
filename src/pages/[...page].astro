@@ -9,18 +9,13 @@ import Intro from "@components/intro.astro";
 //import Logos from "@components/logos.astro";
 import Layout from "@layouts/Layout.astro";
 
-export async function getStaticPaths({ paginate }) {
-  const res = await fetch(
-    "http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*"
-  );
-  const data = await res.json();
 
-  return paginate(data.data, {
-    pageSize: 3,
-  });
-}
+  const res = await fetch(
+    "http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*&pagination[page]=1&pagination[pageSize]=2"
+  );
+  const page = await res.json();
+
 const local = "http://tailwind-tvg6.onrender.com";
-const { page } = Astro.props;
 
 const img = page.data.map((item) => {
   return item.attributes.image;
@@ -65,7 +60,7 @@ const hero2=await hr.json();
     }
     <!-- Section: Design Block -->
   </div>
-
+ 
   <Container>
     <div class="grid gap-1 mt-10">
       <div class="text-center text-blue-600 sm:text-5xl">

@@ -4,16 +4,29 @@ import Container from "@components/container.astro";
 import { getCollection, CollectionEntry } from "astro:content";
 import CategoryCloud from "@components/CategoryCloud.astro";
 import {toSlug } from "js/utils";
-export async function getStaticPaths() {
-  const res=await fetch('http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*');
-  const data=await res.json();
-  return data.data.map((item) => ({
-    params: { slug: item.attributes.slug },
-    props: { item },
-  }));
-}
+import Error404 from "@components/error404.astro";
+  const slug = Astro.params.slug;
 
-const { item } = Astro.props;
+  const res=await fetch(`http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*&&filters[slug][$eq]=${slug}`);
+  const data=await res.json();
+  
+
+  if (data.data==null) {
+    const props = { status: 404 }
+    return new Response((Error404, props), {
+      
+    })
+  }
+  // else{
+  //   return data.data.map((item) => ({
+  //   params: { slug: item.attributes.slug },
+  //   props: { item },
+  //   }));
+
+  // }
+  
+  
+  const item=data.data[0];
 ---
 
 <Layout title="">
@@ -24,8 +37,8 @@ const { item } = Astro.props;
     </div>
     
 
-    <div class="mt-5">
-      {item.attributes.content}
+    <div class="mt-5" set:html={item.attributes.content}>
+      
     </div>
     <div class="text-center ">
       <p class="px-2">Created by</p>

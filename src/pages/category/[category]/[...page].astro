@@ -7,58 +7,87 @@ import Features from "@components/features.astro";
 import Pagination2 from "@components/Pagination_2.astro";
 import CategoryCloud from "@components/CategoryCloud.astro";
 import { formatBlogPosts } from "js/utils";
-export async function getStaticPaths({ paginate }) {
-  const res = await fetch("http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*");
-  const allPosts = await res.json();
-  const category = await fetch("http://tailwind-tvg6.onrender.com/api/categories");
-  const allCategories = await category.json();
-
-  return allCategories.data.map((category) => {
-    const filter = allPosts.data.filter(
-      (p) => p.attributes.category.data.attributes.slug === category.attributes.slug
-    );
-
-   console.log(filter);
-   
-    
-    return paginate(filter, {
-      params: { category: category.attributes.slug },
-      pageSize: 3,
-    });
-  });
-}
-const { page } = Astro.props;
-const img = page.data.map((item) => {
-  return item.attributes.image;
-});
-const filter = img.filter((item) => {
-  if (item.data != null) {
-    return item.data;
+import Error404 from "@components/error404.astro";
+const d = Astro.params.page;
+var t = "1";
+var err=false;var temp=null;
+if(d!=null){
+  const findStr = d.indexOf("/");
+  console.log(findStr);
+  if (d) {
+    t = d.slice(findStr + 1);
   }
-});
+}
+  const res = await fetch(`http://tailwind-tvg6.onrender.com/api/posts?filters[category][slug][$eq]=${Astro.params.category}&sort[0]=createdAt%3Adesc&populate=*&pagination[page]=${t}&pagination[pageSize]=1`);
+  const page = await res.json();
+  console.log(page.meta);
+  
+  if (page.data != null) {
+  const pageCount = page.meta.pagination.pageCount;
+  const currentPage = page.meta.pagination.page;
+  const img = page.data.map((item) => {
+    return item.attributes.image;
+  });
+  const filter = img.filter((item) => {
+    if (item.data != null) {
+      return item.data;
+    }
+  });
 
-const temp = filter.map((item) => {
-  return item.data.attributes;
-});
+   temp = filter.map((item) => {
+    return item.data.attributes;
+  });
+
+  if(currentPage==pageCount&&currentPage>1){
+    var temp_prev=currentPage-1;
+    var prev='/category/'+Astro.params.category+'/page/'+temp_prev;
+  }
+  if(currentPage<pageCount){
+    var temp_next=currentPage+1;
+    var next='/category/'+Astro.params.category+'/page/'+temp_next;
+  }
+
+}
+else{
+  err=true;
+  
+}
+
+ 
 ---
 
 <Layout title="blog">
   <Container>
     <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-3">
       {
-        page.data.map((item,index) => (
-          <Features
-            href={`/blog/${item.attributes.slug}`}
-            description={item.attributes.description}
-            title={item.attributes.title}
-            img={temp[index].url}
-          />
-        ))
+        page.data &&
+         (
+          page.data.map((item, index) => (
+              <Features
+                href={`/blog/${item.attributes.slug}`}
+                description={item.attributes.description}
+                title={item.attributes.title}
+                img={temp[index].url}
+              />
+            ))
+         )
       }
     </div>
-    <div class="gird items-center text-center mt-5">
-      <Pagination2 prev={page.url.prev} next={page.url.next} />
-    </div>
+    {
+      page.data &&(
+        <div
+        class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 items-center text-center mt-5">
+        <Pagination2 prev={prev} next={next} />
+        </div>
+      )
+    }
+    {
+      err&&(
+        <div class="text-center"> 
+          <Error404/>
+         </div>
+      )
+    }
     <CategoryCloud></CategoryCloud>
 
   </Container>

@@ -8,10 +8,16 @@ import netlify from '@astrojs/netlify/edge-functions';
 // https://astro.build/config
 
 // https://astro.build/config
-export default defineConfig({
 
+// https://astro.build/config
+export default defineConfig({
+  // output: 'server',
   site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
-  }), mdx(), sitemap({filter: (page) => page !== 'https://stargazers.club/blog'})]
+  }), mdx(), sitemap({
+    filter: page => page !== 'https://stargazers.club/blog'
+  })],
+  output: "server",
+  adapter: netlify()
 });
