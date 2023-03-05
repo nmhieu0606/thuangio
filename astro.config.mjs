@@ -11,13 +11,13 @@ import netlify from '@astrojs/netlify/functions';
 
 // https://astro.build/config
 export default defineConfig({
-  // output: 'server',
+  output: "server",
+  adapter: netlify(),
   site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
   }), mdx(), sitemap({
     filter: page => page !== 'https://stargazers.club/blog'
   })],
-  output: "server",
-  adapter: netlify()
+ 
 });
