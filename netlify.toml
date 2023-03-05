@@ -1,2 +1,2 @@
 [functions]
-external_node_modules = ["svgo"]
+external_node_modules =["svgo","astro"]
