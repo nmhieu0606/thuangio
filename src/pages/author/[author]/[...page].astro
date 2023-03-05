@@ -13,14 +13,14 @@ var t = "1";
 var err=false;var temp=null;
 if(d!=null){
   const findStr = d.indexOf("/");
-  console.log(findStr);
+  
   if (d) {
     t = d.slice(findStr + 1);
   }
 }
   const res = await fetch(`http://tailwind-tvg6.onrender.com/api/posts?filters[createdBy][username][$eq]=${Astro.params.author}&sort[0]=createdAt%3Adesc&populate=*&pagination[page]=${t}&pagination[pageSize]=1`);
   const page = await res.json();
-  console.log(page.meta);
+  
   
   if (page.data != null) {
   const pageCount = page.meta.pagination.pageCount;

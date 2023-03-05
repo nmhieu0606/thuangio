@@ -11,7 +11,7 @@ const d = Astro.params.page;
 var t = "1";
 if(d!=null){
   const findStr = d.indexOf("/");
-  console.log(findStr);
+  
   if (d) {
     t = d.slice(findStr + 1);
   }
@@ -19,9 +19,9 @@ if(d!=null){
 const res = await fetch(
   `http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*&pagination[page]=${t}&pagination[pageSize]=3`
 );
-var err=false;
+var err=false;var temp=null;
 const page = await res.json();
-var temp=null;
+
 if (page.data != null) {
   const pageCount = page.meta.pagination.pageCount;
   const currentPage = page.meta.pagination.page;
