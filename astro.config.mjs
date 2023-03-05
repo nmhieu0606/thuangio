@@ -16,8 +16,6 @@ export default defineConfig({
   site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
-  }), mdx(), sitemap({
-    filter: page => page !== 'https://stargazers.club/blog'
-  })],
+  }), mdx(), sitemap({customPages: ['https://stargazers.biz/careers'],})],
  
 });
