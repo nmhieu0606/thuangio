@@ -1,4 +1,0 @@
-[functions]
-external_node_modules =["svgo","astro"]
-[functions]
-  node_bundler = "esbuild"
