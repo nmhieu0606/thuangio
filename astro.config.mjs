@@ -17,7 +17,7 @@ export default defineConfig({
   output: "server",
   adapter: netlify({
     dist: new URL('./dist/', import.meta.url)
-  }),
+  }),image(),
   site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), mdx(), sitemap({
     customPages: ['https://stargazers.biz/careers']
