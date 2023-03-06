@@ -16,14 +16,11 @@ import netlify from '@astrojs/netlify/functions';
 // https://astro.build/config
 
 // https://astro.build/config
+
+// https://astro.build/config
 export default defineConfig({
   output: "server",
   adapter: netlify(),
-  vite: {
-    ssr: {
-      noExternal: ["path-to-regexp"]
-    }
-  },
   site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
