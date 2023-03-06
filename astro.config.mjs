@@ -10,12 +10,18 @@ import netlify from '@astrojs/netlify/functions';
 // https://astro.build/config
 
 // https://astro.build/config
+import node from "@astrojs/node";
+
+// https://astro.build/config
 export default defineConfig({
   output: "server",
-  adapter: netlify(),
+  adapter: node({
+    mode: "standalone"
+  }),
   site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
-  }), mdx(), sitemap({customPages: ['https://stargazers.biz/careers'],})],
- 
+  }), mdx(), sitemap({
+    customPages: ['https://stargazers.biz/careers']
+  })]
 });
