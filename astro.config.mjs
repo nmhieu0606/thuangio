@@ -19,9 +19,7 @@ export default defineConfig({
     dist: new URL('./dist/', import.meta.url)
   }),
   site: "https://thuangio.netlify.app/",
-  integrations: [tailwind(), image({
-    serviceEntryPoint: "@astrojs/image/sharp"
-  }), mdx(), sitemap({
+  integrations: [tailwind(), mdx(), sitemap({
     customPages: ['https://stargazers.biz/careers']
   })]
 });
