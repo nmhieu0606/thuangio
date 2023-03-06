@@ -4,7 +4,7 @@ import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
-import netlify from '@astrojs/netlify/edge-functions';
+import netlify from '@astrojs/netlify/functions';
 // https://astro.build/config
 
 // https://astro.build/config
@@ -15,7 +15,9 @@ import netlify from '@astrojs/netlify/edge-functions';
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  adapter: netlify(),
+  adapter: netlify({
+    dist: new URL('./dist/', import.meta.url)
+  }),
   site: "https://thuangio.netlify.app/",
   integrations: [tailwind(), image({
     serviceEntryPoint: "@astrojs/image/sharp"
