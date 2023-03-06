@@ -3,14 +3,14 @@ import tailwind from "@astrojs/tailwind";
 import image from "@astrojs/image";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import node from '@astrojs/node';
+
 import netlify from '@astrojs/netlify/edge-functions';
 // https://astro.build/config
 
 // https://astro.build/config
 
 // https://astro.build/config
-import node from "@astrojs/node";
+// import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
