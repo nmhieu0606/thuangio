@@ -1,0 +1,350 @@
+---
+import { map } from "astro/zod";
+
+const res=await fetch('http://tailwind-tvg6.onrender.com/api/footer/');
+const data=await res.json();
+
+const filter_icon= data.data.attributes.footer.filter((item)=>{
+  if(item.icon!=null){
+   return item.icon
+    
+  }
+  
+
+})
+const filter_link= data.data.attributes.footer.filter((item)=>{
+  if(item.Link!=null){
+   return item.Link
+    
+  }
+  
+
+})
+
+
+---
+<!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "145467156266816");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v16.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+<div class="circle flex justify-center items-center">
+  <div class="menu1 relative flex justify-center items-center  ">
+    <div class="toggle cursor-pointer absolute bg-white flex justify-center items-center rounded-full  dark:bg-gray-600">
+      <ion-icon name="add-outline"></ion-icon>
+    </div>
+    <li style="--i:0;">
+      <a href="#">
+        <ion-icon name="laptop-outline"></ion-icon>
+      </a>
+    </li>
+    <li style="--i:1;">
+      <a href="#">
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+      </a>
+    </li>
+    <li style="--i:2;">
+      <a href="#">
+        <ion-icon name="desktop-outline"></ion-icon>
+      </a>
+    </li>
+    <li style="--i:3;">
+      <a href="#">
+        <ion-icon name="watch-outline"></ion-icon>
+      </a>
+    </li>
+  </div>
+</div>
+<div class="body">
+  <footer class="my-20 dark:bg-teal-300">
+    <div class="waves">
+      <div class="wave dark:bg-[url('/wavw.png')]" id="wave1"></div>
+      <div class="wave dark:bg-[url('/wavw.png')] " id="wave2"></div>
+      <div class="wave dark:bg-[url('/wavw.png')]" id="wave3"></div>
+      <div class="wave dark:bg-[url('/wavw.png')]" id="wave4"></div>
+    </div> 
+    <ul class="social_icon">
+      {
+        filter_icon.map((item)=>(
+          item.icon.map((i)=>(
+          <li><a href="#"><ion-icon name={i.icon}></ion-icon></a> </li>
+          ))
+        ))
+      }
+   
+     
+    </ul>
+      <ul class="menu">
+
+        {
+          filter_link.map((item)=>(
+            item.Link.map((i)=>(
+              <li><a href={i.href}>{i.title}</a></li>
+            ))
+          ))
+        }
+       
+        
+      </ul>
+    <p>
+      {data.data.attributes.title}
+    </p>
+    
+  </footer>
+  </div>
+  <style>
+    /* .body{
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      min-height: 100vh;
+      background: #333;
+    } */
+  footer{
+    position: relative;
+    width: 100%;
+    background: #3586ff;
+    min-height: 100px;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  footer .social_icon,
+  footer .menu{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    z-index: 1001;
+  }
+  footer .social_icon li,
+  footer .menu li{
+    list-style: none;
+  }
+  footer .social_icon li a{
+    font-size: 2em;
+    color: #fff;
+    margin: 0 10px;
+    display: inline-block;
+    transition: 0.5s;
+  }
+  footer .social_icon li a:hover{
+    transform: translateY(-10px);
+  }
+  footer .menu li a{
+    font-size: 1.2em;
+    color: #fff;
+    margin: 0 10px;
+    display: inline-block;
+    text-decoration: none;
+    opacity: 0.75;
+  }
+  footer .menu li a:hover{
+    opacity: 1;
+  }
+  footer p{
+    color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+  footer .wave{
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(/wave.png);
+    background-size: 1000px 100px;
+  }
+  footer .wave#wave1{
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 4s linear infinite;
+  }
+  footer .wave#wave2{
+    z-index: 999;
+    opacity: 0.5;
+    bottom: 10px;
+    animation: animateWave_02 4s linear infinite;
+  }
+  footer .wave#wave3{
+    z-index: 1000;
+    opacity: 0.2;
+    bottom: 15px;
+    animation: animateWave 3s linear infinite;
+  }
+  footer .wave#wave4{
+    z-index: 999;
+    opacity: 0.7;
+    bottom: 20px;
+    animation: animateWave_02 3s linear infinite;
+  }
+  @keyframes animateWave{
+    0%{
+      background-position-x: 1000px;
+    }
+    100%{
+      background-position-x: 0px;
+    }
+  }
+  @keyframes animateWave_02{
+    0%{
+      background-position-x: 0px;
+    }
+    100%{
+      background-position-x: 1000px;
+    }
+  } 
+  @media screen and (max-width: 913px) {
+    footer{
+      width: 950px;
+    }
+  }
+  @media screen and (max-width: 825px) {
+    footer{
+      width: 890px;
+    }
+  }
+  @media screen and (max-width: 770px) {
+    footer{
+      width: 855px;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    footer{
+      width: 540px;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    footer{
+      width: 410px;
+    }
+    footer .menu li a{
+    font-size: 0.65em;
+  }
+  }
+  @media screen and (max-width: 400px) {
+    footer{
+      width: 390px;
+    }
+    footer .menu li a{
+    font-size: 0.55em;
+  }
+  }
+  @media screen and (max-width: 380px) {
+    footer{
+      width: 375px;
+    }
+    footer .menu li a{
+    font-size: 0.55em;
+  }
+  }
+  @media screen and (max-width: 370px) {
+    footer{
+      width: 360px;
+    }
+    footer .menu li a{
+    font-size: 0.55em;
+  }
+  }
+  @media screen and (max-width: 300px) {
+    footer{
+      width: 340px;
+    }
+    footer .menu li a{
+    font-size: 0.55em;
+  }
+  }
+  </style>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <style>
+    .circle{
+          height: 50px;
+          z-index: 5000;
+        }
+        .menu1{
+          width: 200px;
+          height: 150px;
+          z-index: 5000;
+          
+        }
+        .menu1 li{
+         position: absolute;
+         list-style: none;
+         left: 0;
+         transform-origin: 100px;
+         transition: 0.5s;
+         transition-delay: calc(0.1s * var(--i));
+         transform: rotate(0deg) translateX(80px);
+        }
+        .menu1 li a{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #0f0;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          transform: rotate(calc(360deg / -4 * var(--i)));
+          box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+          color: #111;
+          transition: 0.5s;
+        }
+        .menu1 li a:hover{
+          color: #ff1252;
+        }
+        .menu1.active li{
+          transform: rotate(calc(360deg / 4 * var(--i)));
+        }
+        .toggle{
+          width: 60px;
+          height: 60px;
+          z-index: 10000;
+          box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+          font-size: 2em;
+          transition: 1.25s;
+        }
+        .menu1.active .toggle{
+          transform: rotate(315deg);
+        }
+  </style>
+  <script>
+    let toggle = document.querySelector('.toggle') as HTMLElement;
+    let menu1 = document.querySelector('.menu1');
+    toggle.onclick = function(){
+      menu1.classList.toggle('active')
+    }
+  </script>
+

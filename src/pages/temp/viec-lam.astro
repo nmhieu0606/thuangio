@@ -1,0 +1,21 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Contactform from "@components/da-co-kinh-nghiem.astro";
+---
+
+<Layout title="Đã có kinh nghiệm">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Tuyển Dụng</Fragment>
+      <Fragment slot="desc"
+        >Thể loại liên quan</Fragment
+      >
+    </Sectionhead>
+    <br>
+    <div class="dark:text-white">
+        <Contactform/>
+    </div>
+  </Container>
+</Layout>

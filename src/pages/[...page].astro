@@ -1,0 +1,118 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Features from "@components/features.astro";
+import Hero2 from "@components/hero2.astro";
+import Features2 from "@components/Features2.astro";
+import Progress from "@components/progress.astro";
+import Intro from "@components/intro.astro";
+//import Logos from "@components/logos.astro";
+import Layout from "@layouts/Layout.astro";
+
+export const prerender=true;
+
+export async function getStaticPaths({ paginate }) {
+  const res = await fetch(
+    `http://tailwind-tvg6.onrender.com/api/posts?sort[0]=createdAt%3Adesc&populate=*`
+  );
+  const Post=await res.json();
+  
+  
+  return paginate(Post.data, {
+    pageSize: 3,
+  });
+}
+const {page}=Astro.props;
+
+const local = "http://tailwind-tvg6.onrender.com";
+
+const img = page.data.map((item) => {
+  return item.attributes.image;
+});
+const filter = img.filter((item) => {
+  if (item.data != null) {
+    return item.data;
+  }
+});
+
+const temp = filter.map((item) => {
+  return item.data.attributes;
+});
+const ft = await fetch(local + "/api/feature");
+const feature = await ft.json();
+
+const hr = await fetch(local + "/api/hero");
+const hero2=await hr.json();
+---
+
+<Layout title="Index">
+  <Cta />
+  <div class="dark:text-gray-300 mt-10">
+    <Features2
+      subtitle={feature.data.attributes.content}
+      title={feature.data.attributes.title}
+      highlight=""
+      items={feature.data.attributes.items}
+    />
+  </div>
+
+  <div>
+    <!-- Section: Design Block -->
+    {
+     (hero2&&(
+       hero2.data.attributes.items.map((item)=>(
+        <Hero2 content={item.caption}  img={item.image.data.attributes.url}/>
+      ))
+     ))
+    }
+    <!-- Section: Design Block -->
+  </div>
+ 
+  <Container>
+    <div class="grid gap-1 mt-10">
+      <div class="text-center text-blue-600 sm:text-5xl">
+        <h1 class="dark:text-white">Tin Tức</h1>
+      </div>
+    </div>
+    <div class="grid gap-1 mt-10">
+      <div class="text-center text-blue-600 sm:text-5xl">
+        <Intro />
+      </div>
+    </div>
+    <div
+      class="grid sm:grid-cols-3 md:grid-cols-3 mt-16 gap-4 sm:text-2xl items-center">
+      {
+        page.data.map((item, index) => (
+          <Features
+            href={`/blog/${item.attributes.slug}`}
+            description={item.attributes.description}
+            title={item.attributes.title}
+            img={temp[index].url}
+          />
+        ))
+      }
+    </div>
+
+    <div
+      class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 text-center align-center mt-5">
+      <a
+        href={`/blog/`}
+        type="button"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Xem Thêm
+        <svg
+          aria-hidden="true"
+          class="w-5 h-5 ml-2 -mr-1"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill-rule="evenodd"
+            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path></svg
+        >
+      </a>
+    </div>
+    <Progress />
+  </Container>
+</Layout>

@@ -1,0 +1,20 @@
+---
+import { Picture } from "@astrojs/image/components";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Layout from "@layouts/Layout.astro";
+import { getFormattedDate } from "@utils/all";
+import { log } from "astro/dist/core/logger/core";
+import Features from "@components/lich-su-hinh-thanh-va-phat-trien.astro";
+---
+<Layout title="qua-trinh-phat-trien">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Lịch sử hình thành và phát triển</Fragment>
+      <Fragment slot="desc"></Fragment>
+    </Sectionhead>
+    <Features />
+  </Container>
+</Layout>
+
+

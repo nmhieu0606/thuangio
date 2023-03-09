@@ -1,0 +1,78 @@
+---
+import { log } from "astro/dist/core/logger/core";
+import { getCollection, CollectionEntry } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Features from "@components/features.astro";
+import Pagination2 from "@components/Pagination_2.astro";
+import CategoryCloud from "@components/CategoryCloud.astro";
+import { formatBlogPosts } from "js/utils";
+import Error404 from "@components/error404.astro";
+const url = new URL(Astro.request.url);
+const t = url.searchParams.get("page") || 1;
+var temp = null;
+var err = false;
+const res = await fetch(
+  `http://tailwind-tvg6.onrender.com/api/posts?filters[createdBy][username][$eq]=${Astro.params.author}&sort[0]=createdAt%3Adesc&populate=*&pagination[page]=${t}&pagination[pageSize]=3`
+);
+  const page = await res.json();
+  const pageCount = page.meta.pagination.pageCount;
+  const currentPage = page.meta.pagination.page;
+  const img = page.data.map((item) => {
+    return item.attributes.image;
+  });
+  const filter = img.filter((item) => {
+    if (item.data != null) {
+      return item.data;
+    }
+  });
+ 
+  temp = filter.map((item) => {
+    return item.data.attributes;
+  });
+
+  if (currentPage == pageCount || currentPage > 1) {
+    var temp_prev = currentPage - 1;
+    var prev = "/author/" + Astro.params.author + "?page=" + temp_prev;
+  }
+  if (currentPage < pageCount) {
+    var temp_next = currentPage + 1;
+    var next = "/author/" + Astro.params.author + "?page=" + temp_next;
+  }
+  const item=page.data[0];
+  var err=true;
+  item!=null?err=false:err=true;
+---
+
+<Layout title="blog">
+  <Container>
+    <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-3">
+      {
+        page.data &&!err&&
+          page.data.map((item, index) => (
+            <Features
+              href={`/blog/${item.attributes.slug}`}
+              description={item.attributes.description}
+              title={item.attributes.title}
+              img={temp[index].url}
+            />
+          ))
+      }
+    </div>
+    {
+      page.data && (
+        <div class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 items-center text-center mt-5">
+          <Pagination2 prev={prev} next={next} />
+        </div>
+      )
+    }
+    {
+      err && (
+        <div class="text-center">
+          <Error404 />
+        </div>
+      )
+    }
+    <CategoryCloud />
+  </Container>
+</Layout>

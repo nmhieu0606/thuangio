@@ -1,0 +1,27 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Pricing from "@components/hoi-dap.astro";
+
+const pricing = [
+  
+ 
+  
+];
+---
+
+<Layout title="Hỏi Đáp">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Nơi giải quyết vấn đề thắc mắt của bạn</Fragment>
+      <Fragment slot="desc"
+        >Mọi Thắc mắc của bạn sẽ được giải quyết nhanh nhất</Fragment
+      >
+    </Sectionhead>
+
+    <div class="grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12">
+      {pricing.map((item) => <Pricing plan={item} />)}
+    </div>
+  </Container>
+</Layout>

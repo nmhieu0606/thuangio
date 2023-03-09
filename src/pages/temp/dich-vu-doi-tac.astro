@@ -1,0 +1,23 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Pricing from "@components/hoi-dap.astro";
+import Service from "@components/dich-vu.astro";
+import Partner from "@components/doi-tac.astro";
+---
+
+<Layout title="Dịch Vụ Đối Tác">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Dịch Vụ</Fragment>
+      <Fragment slot="desc"></Fragment>
+    </Sectionhead>
+    <Service />
+    <Sectionhead>
+      <Fragment slot="title">Đối Tác</Fragment>
+      <Fragment slot="desc"></Fragment>
+    </Sectionhead>
+    <Partner />
+  </Container>
+</Layout>
