@@ -8,10 +8,5 @@ export default defineConfig({
   output: "server",
   integrations: [tailwind(),markdownIntegration()],
   adapter: netlify(),
-  markdown: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-    // syntaxHighlight: 'shiki'
-    // syntaxHighlight: 'prism'
-  }
+  
 });
