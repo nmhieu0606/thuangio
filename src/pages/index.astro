@@ -1,0 +1,94 @@
+---
+import Stats from '../components/Stats.astro';
+import Features from '../components/Features.astro';
+import HeroSection from '../components/HeroSection.astro';
+import Layout from '../layouts/Layout.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CallToAction from '../components/CallToAction.astro';
+import Blog from '../components/Blog.astro';
+import Features2 from '../components/Features2.astro';
+import Container from '../components/Container.astro';
+import type AllPost from "../interfaces/AllPost";
+// Fetch products data
+const pg = await fetch(
+  `${import.meta.env.PUBLIC_SERVER_URL}/api/pagesizes`
+);
+const size = await pg.json();
+
+const pageSize=size.data.map((item:{
+  id:number;
+  attributes:{
+    index:number,
+    blog:number,
+  }
+})=>{
+  return{
+    index:item.attributes.index,
+    blog:item.attributes.blog,
+  }
+})
+
+
+const response = await fetch(
+  `${import.meta.env.PUBLIC_SERVER_URL}/api/posts?sort[0]=createdAt%3Adesc&populate=*&pagination[page]=1&pagination[pageSize]=${pageSize[0].index}`
+);
+const data = await response.json();
+const posts = data.data.map(
+  (item: {
+    id: number;
+    attributes: {
+      title: string;
+      content: string;
+      description: string;
+      slug: string;
+      image: { data: { attributes: { url: string } } };
+      category: { data: { attributes: { name: string; slug: string } } };
+    };
+  }) => {
+    return {
+      
+      title: item.attributes.title,
+      description: item.attributes.description,
+      slug: item.attributes.slug,
+      image:item.attributes.image.data.attributes.url,
+      href:'blog/'+item.attributes.slug,
+
+    };
+  }
+);
+
+const ft = await fetch(`${import.meta.env.PUBLIC_SERVER_URL}/api/feature`);
+const feature = await ft.json();
+
+const hr = await fetch(`${import.meta.env.PUBLIC_SERVER_URL}/api/hero`);
+const hero = await hr.json();
+
+
+---
+
+<Layout title="Welcome to Astrolus.">
+	<main class="space-y-40 mb-40">
+		<HeroSection/>
+		<div class="dark:text-gray-300 mt-10">
+			<Features
+			  subtitle={feature.data.attributes.content}
+			  title={feature.data.attributes.title}
+			  highlight=""
+			  items={feature.data.attributes.items}
+			/>
+		</div>
+		
+		<Stats content={hero.data.attributes.items[0].caption} title={hero.data.attributes.items[0].title} img={hero.data.attributes.items[0].image.data.attributes.url}/>
+		<Testimonials/>
+		<CallToAction/>
+		<Container>
+		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+	
+		{
+			posts.map((post:AllPost)=><Blog post={post}/>)
+		}
+		</div>
+		</Container>
+		
+	</main>
+</Layout>
