@@ -1,0 +1,83 @@
+---
+// Components
+import Layout from "../../layouts/Layout.astro";
+import Container from "../../components/Container.astro";
+import Pagination2 from "../../components/Pagination_2.astro";
+import CategoryCloud from "../../components/CategoryCloud.astro";
+import type AllPost from "../../interfaces/AllPost";
+import Blog from "../../components/Blog.astro";
+
+const pg = await fetch(
+  `${import.meta.env.PUBLIC_SERVER_URL}/api/pagesizes`
+);
+const size = await pg.json();
+
+const pageSize=size.data.map((item:{
+  id:number;
+  attributes:{
+    index:number,
+    blog:number,
+  }
+})=>{
+  return{
+    index:item.attributes.index,
+    blog:item.attributes.blog,
+  }
+})
+const url = new URL(Astro.request.url);
+
+const page=url.searchParams.get('page')||1;
+const response = await fetch(
+  `${import.meta.env.PUBLIC_SERVER_URL}/api/posts?sort[0]=createdAt%3Adesc&populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize[0].blog}`
+);
+const data = await response.json();
+const pageCount = data.meta.pagination.pageCount;
+const currentPage = data.meta.pagination.page;
+const posts = data.data.map(
+  (item: {
+    id: number;
+    attributes: {
+      title: string;
+      content: string;
+      description: string;
+      slug: string;
+      image: { data: { attributes: { url: string } } };
+      category: { data: { attributes: { name: string; slug: string } } };
+    };
+  }) => {
+    return {
+      
+      title: item.attributes.title,
+      description: item.attributes.description,
+      slug: item.attributes.slug,
+      image:item.attributes.image.data.attributes.url,
+      href:'blog/'+item.attributes.slug,
+
+    };
+  }
+);
+if (currentPage>1) {
+    var temp_prev = currentPage - 1;
+    var prev = "/blog?page=" + temp_prev;
+} if(currentPage<pageCount) {
+  var temp_next = currentPage + 1;
+  var next = "/blog?page=" + temp_next;
+}
+---
+
+<Layout title="blog">
+    <Container>
+      
+      <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-3 mt-20">
+        {posts.map((post: AllPost) => <Blog post={post} />)}
+      </div>
+      <div
+        class="gird sm:grid-cols-3 md:grid-cols-2 lg:gird-cols-2 gap-2 items-center text-center mt-5">
+        <Pagination2 prev={prev} next={next} />
+      </div>
+      <CategoryCloud/>
+    </Container> 
+
+      
+    
+</Layout>
