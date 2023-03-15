@@ -15,13 +15,6 @@ import { Markdown } from '@astropub/md'
 
 ```astro
 ---
-import { Markdown } from '@astropub/md'
----
-<Markdown of={`# Hi, there!` /* Renders `<h1>Hi, there!</h1>` */} />
-```
-
-```astro
----
 import { markdown } from '@astropub/md'
 ---
 {
@@ -108,38 +101,7 @@ import { markdown } from '@astropub/md'
 
 Enjoy!
 
-## Project Structure
-
-Inside of this Astro project, you'll see the following folders and files:
-
-```
-/
-├── demo/
-│   ├── public/
-│   └── src/
-│       └── pages/
-            ├── index.astro
-│           └── ...etc
-└── packages/
-    └── md/
-        ├── package.json
-        └── ...etc
-```
-
-This project uses **workspaces** to develop a single package, `@astropub/md`.
-
-It also includes a minimal Astro project, `demo`, for developing and demonstrating the component.
-
-## Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command         | Action                                       |
-|:----------------|:---------------------------------------------|
-| `npm install`   | Installs dependencies                        |
-| `npm run start` | Starts local dev server at `localhost:3000`  |
-| `npm run build` | Build your production site to `./dist/`      |
-| `npm run serve` | Preview your build locally, before deploying |
+---
 
 Want to learn more?
 Read the [Astro documentation][docs-url] or jump into the [Astro Discord][chat-url].
