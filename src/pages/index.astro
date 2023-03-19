@@ -1,36 +1,39 @@
 ---
-import Stats from '../components/Stats.astro';
-import Features from '../components/Features.astro';
-import HeroSection from '../components/HeroSection.astro';
-import Layout from '../layouts/Layout.astro';
-import Testimonials from '../components/Testimonials.astro';
-import CallToAction from '../components/CallToAction.astro';
-import Blog from '../components/Blog.astro';
-import Features2 from '../components/Features2.astro';
-import Container from '../components/Container.astro';
+import Stats from "../components/Stats.astro";
+import Features from "../components/Features.astro";
+import HeroSection from "../components/HeroSection.astro";
+import Layout from "../layouts/Layout.astro";
+import Testimonials from "../components/Testimonials.astro";
+import CallToAction from "../components/CallToAction.astro";
+import Blog from "../components/Blog.astro";
+import Features2 from "../components/Features2.astro";
+import Container from "../components/Container.astro";
 import type AllPost from "../interfaces/AllPost";
 // Fetch products data
-const pg = await fetch(
-  `${import.meta.env.PUBLIC_SERVER_URL}/api/pagesizes`
-);
+const pg = await fetch(`${import.meta.env.PUBLIC_SERVER_URL}/api/pagesizes`);
 const size = await pg.json();
 
-const pageSize=size.data.map((item:{
-  id:number;
-  attributes:{
-    index:number,
-    blog:number,
+const pageSize = size.data.map(
+  (item: {
+    id: number;
+    attributes: {
+      index: number;
+      blog: number;
+    };
+  }) => {
+    return {
+      index: item.attributes.index,
+      blog: item.attributes.blog,
+    };
   }
-})=>{
-  return{
-    index:item.attributes.index,
-    blog:item.attributes.blog,
-  }
-})
-
+);
 
 const response = await fetch(
-  `${import.meta.env.PUBLIC_SERVER_URL}/api/posts?sort[0]=createdAt%3Adesc&populate=*&pagination[page]=1&pagination[pageSize]=${pageSize[0].index}`
+  `${
+    import.meta.env.PUBLIC_SERVER_URL
+  }/api/posts?sort[0]=createdAt%3Adesc&populate=*&pagination[page]=1&pagination[pageSize]=${
+    pageSize[0].index
+  }`
 );
 const data = await response.json();
 const posts = data.data.map(
@@ -46,13 +49,11 @@ const posts = data.data.map(
     };
   }) => {
     return {
-      
       title: item.attributes.title,
       description: item.attributes.description,
       slug: item.attributes.slug,
-      image:item.attributes.image.data.attributes.url,
-      href:'blog/'+item.attributes.slug,
-
+      image: item.attributes.image.data.attributes.url,
+      href: "blog/" + item.attributes.slug,
     };
   }
 );
@@ -63,32 +64,39 @@ const feature = await ft.json();
 const hr = await fetch(`${import.meta.env.PUBLIC_SERVER_URL}/api/hero`);
 const hero = await hr.json();
 
-
 ---
 
 <Layout title="Welcome to Astrolus.">
-	<main class="space-y-40 mb-40">
-		<HeroSection/>
-		<div class="dark:text-gray-300 mt-10">
-			<Features
-			  subtitle={feature.data.attributes.content}
-			  title={feature.data.attributes.title}
-			  highlight=""
-			  items={feature.data.attributes.items}
-			/>
-		</div>
-		
-		<Stats content={hero.data.attributes.items[0].caption} title={hero.data.attributes.items[0].title} img={hero.data.attributes.items[0].image.data.attributes.url}/>
-		<Testimonials/>
-		<CallToAction/>
-		<Container>
-		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-	
-		{
-			posts.map((post:AllPost)=><Blog post={post}/>)
-		}
-		</div>
-		</Container>
-		
-	</main>
+  <main class="space-y-40 mb-40">
+    
+    <HeroSection content={hero.data.attributes.content}  title={hero.data.attributes.title}/>
+    <div class="dark:text-gray-300 mt-10">
+      <Features
+        subtitle={feature.data.attributes.content}
+        title={feature.data.attributes.title}
+        highlight=""
+        items={feature.data.attributes.items}
+      />
+    </div>
+
+    <Stats
+      content={hero.data.attributes.items[0].caption}
+      title={hero.data.attributes.items[0].title}
+      img={hero.data.attributes.items[0].image.data.attributes.url}
+    />
+    <Testimonials />
+    
+    <Container>
+      <div class="text-center"><p class="text-5xl font-bold text-dark dark:text-white">Tin Tức</p></div>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-5">
+        {posts.map((post: AllPost) => <Blog post={post} />)}
+      </div>
+      <div class="text-center mt-5">
+        <a href="/blog" type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+         Xem Thêm
+          <svg aria-hidden="true" class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </a>
+      </div>
+    </Container>
+  </main>
 </Layout>
