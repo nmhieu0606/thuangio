@@ -74,7 +74,7 @@ const footer=data.data.attributes.footer.map((item:{
         
   
       </ul>
-      <p>{data.data.attributes.title}</p>
+      <p class="text-center">{data.data.attributes.title}</p>
     </footer>
 </div>
     <style>
@@ -112,9 +112,10 @@ const footer=data.data.attributes.footer.map((item:{
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
+ 
   margin: 10px 0;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .social-icon__item,
@@ -166,28 +167,28 @@ const footer=data.data.attributes.footer.map((item:{
 }
 
 .wave#wave1 {
-  z-index: 1000;
+  /* z-index: 1000; */
   opacity: 1;
   bottom: 0;
   animation: animateWaves 4s linear infinite;
 }
 
 .wave#wave2 {
-  z-index: 999;
+  /* z-index: 999; */
   opacity: 0.5;
   bottom: 10px;
   animation: animate 4s linear infinite !important;
 }
 
 .wave#wave3 {
-  z-index: 1000;
+  /* z-index: 1000; */
   opacity: 0.2;
   bottom: 15px;
   animation: animateWaves 3s linear infinite;
 }
 
 .wave#wave4 {
-  z-index: 999;
+  /* z-index: 999; */
   opacity: 0.7;
   bottom: 20px;
   animation: animate 3s linear infinite;
